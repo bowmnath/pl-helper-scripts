@@ -24,7 +24,7 @@ args = parser.parse_args()
 dat = pd.read_csv(args.fname)
 
 if args.group:
-    num_cols_expected = 13
+    num_cols_expected = 15
     desired_columns = ['group_name',
                        'uid_list',
                        'qid',
@@ -32,7 +32,7 @@ if args.group:
                        'score_perc',
                        'feedback']
 else:
-    num_cols_expected = 16
+    num_cols_expected = 15
     desired_columns = ['uid',
                        'qid',
                        'submission_id',
