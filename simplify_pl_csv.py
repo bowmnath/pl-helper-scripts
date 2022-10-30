@@ -13,6 +13,8 @@ parser = argparse.ArgumentParser(description="Simplify PL grading CSV")
 parser.add_argument("fname", help="CSV grading file downloaded from PL")
 parser.add_argument("-g", "--group", action="store_true",
                     help="Grading a group assessment")
+parser.add_argument("-k", "--keep-full-scores", action="store_true",
+                    help="Keep rows that had 100% or higher already")
 parser.add_argument('-u','--uids', nargs='*',
                     help='Optional list of uids without @... suffix '
                          '(defaults to selecting all)')
@@ -42,6 +44,9 @@ else:
 
 # confirm that file has not already been modified
 assert len(dat.columns) == num_cols_expected
+
+if not args.keep_full_scores:
+    dat = dat[dat['old_score_perc'] < 100]
 
 dat = dat.get(desired_columns)
 
