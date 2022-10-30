@@ -5,9 +5,14 @@
 Tranform a PrairieLearn manual-grading csv
 (`..._submissions_for_manual_grading.csv`)
 into a more usable format by removing some of the columns. Will work for
-either a group or an individual assessment based on a command-line flag.
+either a group or an individual assessment.
 Also allows filtering rows of the csv by student id and/or question id via
 command-line flags.
+
+By default, this script will remove any rows corresponding to previous scores
+of 100% or better so that you know you can skip them in cases where you are
+allowing resubmissions for an improved grade.
+This behavior can be overridden with a command-line flag.
 
 On a Linux system, you can run with `python3 simplify_pl_csv.py -h` to see
 the arguments. Note, however, that the filename (`fname`) argument must come
