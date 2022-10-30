@@ -11,8 +11,6 @@ UID_SUFFIX = '@mail.gvsu.edu'
 
 parser = argparse.ArgumentParser(description="Simplify PL grading CSV")
 parser.add_argument("fname", help="CSV grading file downloaded from PL")
-parser.add_argument("-g", "--group", action="store_true",
-                    help="Grading a group assessment")
 parser.add_argument("-k", "--keep-full-scores", action="store_true",
                     help="Keep rows that had 100% or higher already")
 parser.add_argument('-u','--uids', nargs='*',
@@ -25,7 +23,9 @@ args = parser.parse_args()
 
 dat = pd.read_csv(args.fname)
 
-if args.group:
+is_group = 'group_name' in dat.columns
+
+if is_group:
     num_cols_expected = 15
     desired_columns = ['group_name',
                        'uid_list',
@@ -59,7 +59,7 @@ if args.uids is not None:
 
     full_desired_uids = set([u + UID_SUFFIX for u in args.uids])
 
-    if args.group:
+    if is_group:
         # List of names is stored as string, which much be converted to list
         # using json. Then, find set intersection of that set with desired uids
         desired_rows = dat['uid_list'].apply(lambda r:
