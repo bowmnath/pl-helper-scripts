@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Originally written by Erin Carrier.
+# Slight modifications and comments by Nathan Bowman.
+#
+# Purpose: Rename a PL question directory and update all assessments containing
+# that question. Helps prevent broken assessments when cleaning up question
+# names in a repo.
+#
+# Must be run directly from the questions/ directory. This is to ensure that
+# the full path name to the question, as it will be seen by any assessments,
+# is given. Otherwise, errors would arise if question subdirectories had
+# questions with the same name.
+#
+# Caveat: The sed line will work correctly only if the assessments in a given
+# course instance are stored in a flat directory. (E.g., it would not work if
+# assesssments were stored in exams/exam1, exams/exam2, hws/hw1, etc. under
+# the assessments/ directory.)
+#
+# This could probably be worked around with either globstar or find.
+# But, all of my repos are currently stored flat, so I haven't changed it.
+current_dir=${PWD##*/}
+if [ $current_dir != "questions" ]; then
+    echo "must be in questions dir"
+    return 1
+else
+    git mv $1 $2
+    sed -e "s|\"$1\"|\"$2\"|" --in-place ../courseInstances/*/assessments/*/infoAssessment.json
+fi

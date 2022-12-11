@@ -1,5 +1,24 @@
 # PL Helpers
 
+`plcp` --
+
+Copy a question directory and give the new question a new UUID.
+Basically a quick shortcut to `cp -r` and `reuuid.sh`.
+
+`plmv` --
+
+Rename a PL question directory and update all assessments containing that
+question.
+Helps prevent broken assessments when cleaning up question names in a repo.
+See comments in script for limitations.
+
+`reuuid.sh` and `newuuid.sh` --
+
+Modify an info file's UUID in place
+(useful after copying an existing question or assessment).
+`reuuid.sh` is the script that should be called.
+`newuuid.sh` is simply a helper for `reuuid.sh`.
+
 `simplify_pl_csv.py` --
 
 Tranform a PrairieLearn manual-grading csv
@@ -29,7 +48,11 @@ on a Windows or Mac machine, but I believe it would work in those environments.
 
 ## License
 
-All code in this repository is released open-source under the MIT License.
+The scripts `newuuid.sh` and `reuuid.sh` were not written by me,
+but they were shared publicly on PrairieLearn's Slack workspace and were
+clearly meant to be used by anyone who was interested.
+
+All other code in this repository is released open-source under the MIT License.
 
 ## Updates
 
